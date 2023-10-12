@@ -11,7 +11,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-@Table(name = "customers")
+@Table(
+        name = "customers",
+        uniqueConstraints = {
+
+        }
+)
 public class User {
 
     @Id

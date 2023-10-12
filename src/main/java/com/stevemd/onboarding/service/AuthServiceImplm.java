@@ -6,7 +6,6 @@ import com.stevemd.onboarding.dto.UserDTO;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +15,17 @@ public class AuthServiceImplm implements AuthService{
     @Autowired
     public UserRepository userRepository;
 
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
     @Override
     public UserDTO signUpUser(SignUpRequest signUpRequest) {
+
 
         User user = new User();
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
-        user.setPassword(new BCryptPasswordEncoder().encode(signUpRequest.getPassword()));
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         User signUpUser = userRepository.save(user);
 
         UserDTO userDTO = new UserDTO();
