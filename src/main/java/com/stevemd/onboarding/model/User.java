@@ -24,20 +24,19 @@ public class User {
     @SequenceGenerator(name = "customer_sequence",sequenceName = "customer_sequence",allocationSize = 1)
     private Long id;
 
+
+    @Getter
+    @Setter
     @Column(name = "name",nullable = false)
     private String name;
 
+    @Getter
+    @Setter
     @Column(name = "email",nullable = false)
     private String email;
 
+    @Getter
+    @Setter
     @Column(name = "password",nullable = false)
     private String password;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

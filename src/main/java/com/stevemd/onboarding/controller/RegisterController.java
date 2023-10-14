@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -26,8 +25,13 @@ public class RegisterController {
     public ResponseEntity<?> signUpUser(@RequestBody SignUpRequest signUpRequest) {
 
         /**
-         * Perform these before attempting to sign up the user
+         * Perform these before steps first attempting to sign up the user
+         *
+         * @ControlStatements
+         * 1.userRepository.existsByName(signUpRequest.getName())
+         * 2.userRepository.existsByEmail(signUpRequest.getEmail())
          */
+
         if (userRepository.existsByName(signUpRequest.getName())) {
             return new ResponseEntity<>("Name is already taken", HttpStatus.BAD_REQUEST);
         }
@@ -35,12 +39,13 @@ public class RegisterController {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return new ResponseEntity<>("Email is taken and is already in use by another account",HttpStatus.BAD_REQUEST);
         }
+
         UserDTO signUpUser = authService.signUpUser(signUpRequest);
 
         if (signUpUser == null) {
             return new ResponseEntity<>("Failed to sign up user, please try again", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(signUpUser+" User Registered successfully",HttpStatus.CREATED);
+        return new ResponseEntity<>(" User Registered successfully",HttpStatus.CREATED);
     }
 }
