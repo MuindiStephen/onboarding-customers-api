@@ -25,15 +25,18 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<?> signUpUser(@RequestBody SignUpRequest signUpRequest) {
 
-        UserDTO signUpUser = authService.signUpUser(signUpRequest);
 
+        /**
+         * Perform these before attempting to sign up the user
+         */
         if (userRepository.existsByName(signUpRequest.getName())) {
-            return new ResponseEntity<>("Username is already taken", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Name is already taken", HttpStatus.BAD_REQUEST);
         }
 
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return new ResponseEntity<>("Email is taken and is already in use by another account",HttpStatus.BAD_REQUEST);
         }
+        UserDTO signUpUser = authService.signUpUser(signUpRequest);
 
         if (signUpUser == null) {
             return new ResponseEntity<>("Failed to sign up user, please try again", HttpStatus.BAD_REQUEST);
