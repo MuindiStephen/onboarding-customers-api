@@ -25,7 +25,6 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<?> signUpUser(@RequestBody SignUpRequest signUpRequest) {
 
-
         /**
          * Perform these before attempting to sign up the user
          */
