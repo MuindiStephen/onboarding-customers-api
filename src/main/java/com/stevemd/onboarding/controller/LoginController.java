@@ -1,8 +1,7 @@
 package com.stevemd.onboarding.controller;
 
-import com.stevemd.onboarding.dto.LoginRequest;
-import com.stevemd.onboarding.dto.LoginResponse;
-import com.stevemd.onboarding.model.User;
+import com.stevemd.onboarding.payload.LoginRequest;
+import com.stevemd.onboarding.payload.LoginResponse;
 import com.stevemd.onboarding.service.AuthService;
 import com.stevemd.onboarding.service.jwt.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

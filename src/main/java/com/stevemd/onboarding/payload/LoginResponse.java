@@ -1,4 +1,4 @@
-package com.stevemd.onboarding.dto;
+package com.stevemd.onboarding.payload;
 
 public class LoginResponse {
 

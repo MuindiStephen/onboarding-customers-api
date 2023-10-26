@@ -1,6 +1,5 @@
 package com.stevemd.onboarding.utils;
 
-//     public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 
 import com.stevemd.onboarding.service.jwt.UserDetailsServiceImpl;
 import io.jsonwebtoken.*;
@@ -20,10 +19,10 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @org.springframework.beans.factory.annotation.Value("${bezkoder.app.jwtSecret}")
+    @Value("${stephenmuindi.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${bezkoder.app.jwtExpirationMs}")
+    @Value("${stephenmuindi.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {

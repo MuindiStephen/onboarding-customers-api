@@ -1,7 +1,7 @@
 package com.stevemd.onboarding.controller;
 
-import com.stevemd.onboarding.dto.SignUpRequest;
-import com.stevemd.onboarding.dto.UserDTO;
+import com.stevemd.onboarding.payload.SignUpRequest;
+import com.stevemd.onboarding.payload.UserDTO;
 import com.stevemd.onboarding.repository.UserRepository;
 import com.stevemd.onboarding.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
