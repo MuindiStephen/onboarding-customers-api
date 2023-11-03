@@ -14,11 +14,12 @@ import javax.validation.constraints.Size;
 @Setter
 @ToString
 @Table(
-        name = "customers",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "name"),
-                @UniqueConstraint(columnNames = "email")
-        }
+        name = "customers"
+//        ,
+//        uniqueConstraints = {
+//                @UniqueConstraint(columnNames = "name"),
+//                @UniqueConstraint(columnNames = "email")
+//        }
 )
 public class User {
 

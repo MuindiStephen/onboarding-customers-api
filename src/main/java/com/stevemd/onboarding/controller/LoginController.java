@@ -4,6 +4,7 @@ import com.stevemd.onboarding.payload.LoginRequest;
 import com.stevemd.onboarding.payload.LoginResponse;
 import com.stevemd.onboarding.service.AuthService;
 import com.stevemd.onboarding.service.jwt.UserDetailsServiceImpl;
+import com.stevemd.onboarding.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,6 +30,9 @@ public class LoginController {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
 
     @PostMapping("/login")
     public LoginResponse loginUserWithCreatedAuthenticationToken(
@@ -46,8 +50,8 @@ public class LoginController {
             return null;
         }
         final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
-        final String jwt =null;
-        return null;
+        final String jwt = jwtUtils.getUserNameFromJwtToken(userDetails.getUsername());
+        return new LoginResponse(jwt) ;
     }
 }
 
