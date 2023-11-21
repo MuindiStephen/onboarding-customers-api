@@ -22,7 +22,7 @@ public class JwtUtils {
     @Value("${stephenmuindi.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${stephenmuindi.app.jwtExpirationMs}")
+    @Value("${stephenmuindi.app.jwtExpirationMs")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
