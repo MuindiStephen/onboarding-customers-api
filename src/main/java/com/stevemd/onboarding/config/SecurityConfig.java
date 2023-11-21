@@ -38,7 +38,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
             httpSecurity
                     .csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/register").permitAll()
+                    .antMatchers("/register","/login").permitAll()
                     .antMatchers("/api/**").authenticated()
                     .and()
                     .sessionManagement()

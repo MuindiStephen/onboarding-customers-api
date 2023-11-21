@@ -1,21 +1,16 @@
 package com.stevemd.onboarding.service;
 
 
-import com.stevemd.onboarding.dto.LoginRequest;
-import com.stevemd.onboarding.dto.SignUpRequest;
-import com.stevemd.onboarding.dto.UserDTO;
+import com.stevemd.onboarding.payload.SignUpRequest;
+import com.stevemd.onboarding.payload.UserDTO;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImplm implements AuthService{
+public class AuthServiceImplm implements AuthService {
 
     @Autowired
     public UserRepository userRepository;
@@ -23,8 +18,6 @@ public class AuthServiceImplm implements AuthService{
     @Autowired
     public PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Override
     public UserDTO signUpUser(SignUpRequest signUpRequest) {
@@ -43,16 +36,4 @@ public class AuthServiceImplm implements AuthService{
 //        userDTO.setPassword(signUpUser.getPassword());
         return userDTO;
     }
-
-    @Override
-    public Authentication signInUser(LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginRequest.getEmail(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return authentication;
-    }
-
-
 }

@@ -4,6 +4,8 @@ package com.stevemd.onboarding.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @NoArgsConstructor
@@ -12,10 +14,12 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Table(
-        name = "customers",
-        uniqueConstraints = {
-
-        }
+        name = "customers"
+//        ,
+//        uniqueConstraints = {
+//                @UniqueConstraint(columnNames = "name"),
+//                @UniqueConstraint(columnNames = "email")
+//        }
 )
 public class User {
 
@@ -25,6 +29,8 @@ public class User {
     private Long id;
 
 
+    @NotBlank
+    @Size(max = 20)
     @Getter
     @Setter
     @Column(name = "name",nullable = false)
@@ -32,11 +38,15 @@ public class User {
 
     @Getter
     @Setter
+    @NotBlank
+    @Size(max = 30)
     @Column(name = "email",nullable = false)
     private String email;
 
     @Getter
     @Setter
+    @NotBlank
+    @Size(max = 150)
     @Column(name = "password",nullable = false)
     private String password;
 }
