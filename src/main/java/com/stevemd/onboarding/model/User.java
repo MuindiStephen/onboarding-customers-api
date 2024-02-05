@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * @User is a POJO class to represent database programming.
+ * @User is a POJO class [Data Model] to represent database programming.
  * It holds or represents persistent data or data that can be sustained even if
  * the process is changed or removed.
  */
