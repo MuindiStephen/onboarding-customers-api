@@ -19,3 +19,7 @@ Java Spring-boot backend application for onboarding new customers
 * \du -  a list of all users with their privileges
 * \dt - check that your new table is created successfully
 * \password postgres - set new password or change to a new password
+
+### Postgre Database statements
+* create database registration;
+* 

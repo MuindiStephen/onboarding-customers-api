@@ -4,6 +4,7 @@ import com.stevemd.onboarding.payload.LoginRequest;
 import com.stevemd.onboarding.payload.LoginResponse;
 import com.stevemd.onboarding.service.AuthService;
 import com.stevemd.onboarding.service.jwt.UserDetailsServiceImpl;
+import com.stevemd.onboarding.utils.AppUtils;
 import com.stevemd.onboarding.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,7 @@ import javax.naming.NameNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@CrossOrigin(origins = "https://localhost:8088/")
 @RestController
 public class LoginController {
 
@@ -33,8 +36,7 @@ public class LoginController {
     @Autowired
     private JwtUtils jwtUtils;
 
-
-    @PostMapping("/login")
+    @PostMapping(AppUtils.BASE_URL+"/login")
     public LoginResponse loginUserWithCreatedAuthenticationToken(
             @RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse
     ) throws BadCredentialsException, DisabledException, NameNotFoundException, IOException {
