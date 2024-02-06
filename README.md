@@ -24,4 +24,9 @@ Java Spring-boot backend application for onboarding new customers
 
 ### Postgre Database statements
 * create database registration;
-* 
+
+### Some Validation Annotations
+* NotEmpty: a constrained CharSequence, Collection, Map, or Array is valid as long as it's not null, and its size/length is greater than zero. @NotBlank: a constrained String is valid as long as it's not null, and the trimmed length is greater than zero 
+ > eg. 
+ > @NotEmpty
+ > private List<String> hobbies;

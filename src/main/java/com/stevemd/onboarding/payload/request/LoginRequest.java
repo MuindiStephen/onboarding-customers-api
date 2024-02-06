@@ -1,6 +1,8 @@
-package com.stevemd.onboarding.payload;
+package com.stevemd.onboarding.payload.request;
 
 import lombok.Data;
+
+import javax.validation.constraints.Email;
 
 
 /**
@@ -8,6 +10,9 @@ import lombok.Data;
  */
 @Data
 public class LoginRequest {
+
+    @Email
     private String email;
+
     private String password;
 }
