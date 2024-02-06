@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @User is a POJO class [Data Model] to represent database programming.
@@ -32,6 +34,8 @@ public class User {
     @SequenceGenerator(name = "customer_sequence",sequenceName = "customer_sequence",allocationSize = 1)
     private Long id;
 
+    private Role role;
+
 
     @NotBlank
     @Size(max = 20)
@@ -55,9 +59,14 @@ public class User {
     @Column(name = "password",nullable = false)
     private String password;
 
-    @Min(16)
-    @Max(90)
-    @NotNull
-    @Past
-    private Integer age;
+    @Setter
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+
+    private Set<Role> getRole() {
+        return roles;
+    }
+
 }

@@ -2,10 +2,9 @@ package com.stevemd.onboarding.controller;
 
 import com.stevemd.onboarding.payload.request.LoginRequest;
 import com.stevemd.onboarding.payload.response.LoginResponse;
+import com.stevemd.onboarding.security.jwt.JwtUtils;
 import com.stevemd.onboarding.service.AuthService;
-import com.stevemd.onboarding.service.jwt.UserDetailsServiceImpl;
 import com.stevemd.onboarding.utils.AppUtils;
-import com.stevemd.onboarding.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,7 +12,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 
-@CrossOrigin(origins = "https://localhost:8088/")
+@CrossOrigin(origins = "https://localhost:8088/")  // ("*")
 @RestController
 public class LoginController {
 
@@ -70,10 +68,13 @@ public class LoginController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
+        String jwt =
+        /**
+            final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
 
-        final String jwt = jwtUtils.getUserNameFromJwtToken(userDetails.getUsername());
-        return new LoginResponse(jwt) ;
+            final String jwt = jwtUtils.getUserNameFromJwtToken(userDetails.getUsername());
+            return new LoginResponse(jwt) ;
+         */
     }
 }
 
