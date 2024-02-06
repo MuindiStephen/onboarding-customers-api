@@ -13,19 +13,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
+/** @SecurityConfig
+ * Configure security settings for a web application.
+ * Now, we define security configurations for our HTTP requests.
+ */
     @Configuration
     @EnableWebSecurity
     @EnableMethodSecurity
     @Deprecated
     public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
        // Securely storing passwords
         @Bean
-        public PasswordEncoder passwordEncoder() {
+        public BCryptPasswordEncoder passwordEncoder() {
             return new BCryptPasswordEncoder();
         }
-
         @Bean
         public AuthenticationManager authenticationManager(
                 AuthenticationConfiguration configuration) throws Exception {
@@ -36,7 +37,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         @Override
         protected void configure(HttpSecurity httpSecurity) throws Exception {
             httpSecurity
-                    .csrf().disable()
+                    .csrf().disable()  // disables cross site request forgery
                     .authorizeRequests()
                     .antMatchers("/register","/login").permitAll()
                     .antMatchers("/api/**").authenticated()
