@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /** @SecurityConfig
- * Configure security settings for a web application
+ * Configure security settings for a web application.
  * Now, we define security configurations for our HTTP requests.
  */
     @Configuration
@@ -27,7 +27,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         public BCryptPasswordEncoder passwordEncoder() {
             return new BCryptPasswordEncoder();
         }
-
         @Bean
         public AuthenticationManager authenticationManager(
                 AuthenticationConfiguration configuration) throws Exception {
