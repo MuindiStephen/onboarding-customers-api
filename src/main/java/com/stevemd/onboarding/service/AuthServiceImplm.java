@@ -1,7 +1,7 @@
 package com.stevemd.onboarding.service;
 
 
-import com.stevemd.onboarding.payload.SignUpRequest;
+import com.stevemd.onboarding.payload.request.SignUpRequest;
 import com.stevemd.onboarding.payload.UserDTO;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.repository.UserRepository;
@@ -18,6 +18,11 @@ public class AuthServiceImplm implements AuthService {
     @Autowired
     public PasswordEncoder passwordEncoder;
 
+    /**
+     * Create user's account
+     * @param signUpRequest
+     * @return
+     */
 
     @Override
     public UserDTO signUpUser(SignUpRequest signUpRequest) {
@@ -27,6 +32,7 @@ public class AuthServiceImplm implements AuthService {
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+
         User signUpUser = userRepository.save(user);
 
         UserDTO userDTO = new UserDTO();

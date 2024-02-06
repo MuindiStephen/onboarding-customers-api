@@ -4,8 +4,7 @@ package com.stevemd.onboarding.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 /**
  * @User is a POJO class [Data Model] to represent database programming.
@@ -45,6 +44,7 @@ public class User {
     @Setter
     @NotBlank
     @Size(max = 30)
+    @Email
     @Column(name = "email",nullable = false)
     private String email;
 
@@ -54,4 +54,10 @@ public class User {
     @Size(max = 150)
     @Column(name = "password",nullable = false)
     private String password;
+
+    @Min(16)
+    @Max(90)
+    @NotNull
+    @Past
+    private Integer age;
 }
