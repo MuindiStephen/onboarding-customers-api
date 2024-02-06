@@ -40,7 +40,8 @@ public class AuthServiceImplm implements AuthService {
         userDTO.setName(signUpUser.getName());
         userDTO.setEmail(signUpUser.getEmail());
 //        userDTO.setPassword(signUpUser.getPassword());
-        // NB: Not to reveal user's password during signup.
+
+// NB: Not to reveal user's password during signup.
 
         return userDTO;
     }
