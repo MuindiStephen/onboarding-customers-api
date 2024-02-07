@@ -3,6 +3,7 @@ package com.stevemd.onboarding.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -39,9 +40,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
             httpSecurity
                     .csrf().disable()  // disables cross site request forgery
                     .authorizeRequests()
-                    .antMatchers("/api/v1/**").permitAll()
-                    .antMatchers("/api/v1/**").authenticated()
-                   // .anyRequest().authenticated()
+                    .antMatchers(HttpMethod.POST,"/auth/**").permitAll()
+                    .anyRequest().authenticated() // any other request, require authentication
                     .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

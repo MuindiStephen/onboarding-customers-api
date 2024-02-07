@@ -17,8 +17,5 @@ public class OnboardingApplication {
 		SpringApplication.run(OnboardingApplication.class, args);
 	}
 
-	@GetMapping("/onboarding")
-	public String hello() {
-		return "Welcome to Onboarding!!!";
-	}
+
 }

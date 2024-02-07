@@ -18,50 +18,22 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@Table(
-        name = "customers"
-//        ,
-//        uniqueConstraints = {
-//                @UniqueConstraint(columnNames = "name"),
-//                @UniqueConstraint(columnNames = "email")
-//        }
-)
+@Builder
+@Table(name = "customers")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "customer_sequence")
-    @SequenceGenerator(name = "customer_sequence",sequenceName = "customer_sequence",allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-
-    @NotBlank
-    @Size(max = 20)
-    @Getter
-    @Setter
     @Column(name = "name",nullable = false)
     private String name;
-
-    @Getter
-    @Setter
-    @NotBlank
-    @Size(max = 30)
-    @Email
     @Column(name = "email",nullable = false)
     private String email;
-
-    @Getter
-    @Setter
-    @NotBlank
-    @Size(max = 150)
     @Column(name = "password",nullable = false)
     private String password;
-
-    @Setter
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
 
     private Set<Role> getRole() {
         return roles;
