@@ -39,6 +39,7 @@ public class LoginController {
 
 //    @Autowired
 //    private  Authentication authentication;
+    // No need to autowire this because it is obtained directly from Authentication Manager
 
     @Autowired
     private AuthService authService;

@@ -39,8 +39,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
             httpSecurity
                     .csrf().disable()  // disables cross site request forgery
                     .authorizeRequests()
-                    .antMatchers("/register","/login").permitAll()
-                    .antMatchers("/api/**").authenticated()
+                    .antMatchers("/api/v1/**").permitAll()
+                    .antMatchers("/api/v1/**").authenticated()
+                   // .anyRequest().authenticated()
                     .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

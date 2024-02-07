@@ -8,9 +8,11 @@ import com.stevemd.onboarding.payload.response.MessageResponse;
 import com.stevemd.onboarding.repository.RoleRepository;
 import com.stevemd.onboarding.repository.UserRepository;
 import com.stevemd.onboarding.service.AuthService;
+import com.stevemd.onboarding.utils.AppUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+@CrossOrigin("*")
 @RestController
 public class RegisterController {
 
@@ -45,7 +48,7 @@ public class RegisterController {
      * @param signUpRequest
      * @return
      */
-    @PostMapping("/register")
+    @PostMapping("register")
     public ResponseEntity<?> signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
         if (userRepository.existsByName(signUpRequest.getName())) {
