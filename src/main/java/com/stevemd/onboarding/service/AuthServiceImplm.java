@@ -1,9 +1,8 @@
 package com.stevemd.onboarding.service;
 
 
-import com.stevemd.onboarding.payload.request.SignUpRequest;
-import com.stevemd.onboarding.payload.UserDTO;
 import com.stevemd.onboarding.model.User;
+import com.stevemd.onboarding.payload.request.SignUpRequest;
 import com.stevemd.onboarding.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +24,7 @@ public class AuthServiceImplm implements AuthService {
      */
 
     @Override
-    public UserDTO signUpUser(SignUpRequest signUpRequest) {
+    public User signUpUser(SignUpRequest signUpRequest) {
 
 
         User user = new User();
@@ -35,14 +34,13 @@ public class AuthServiceImplm implements AuthService {
 
         User signUpUser = userRepository.save(user);
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(signUpUser.getId());
-        userDTO.setName(signUpUser.getName());
-        userDTO.setEmail(signUpUser.getEmail());
+        user.setId(signUpUser.getId());
+        user.setName(signUpUser.getName());
+        user.setEmail(signUpUser.getEmail());
 //        userDTO.setPassword(signUpUser.getPassword());
 
 // NB: Not to reveal user's password during signup.
 
-        return userDTO;
+        return user;
     }
 }

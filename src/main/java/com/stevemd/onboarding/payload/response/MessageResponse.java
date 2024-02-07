@@ -1,8 +1,9 @@
 package com.stevemd.onboarding.payload.response;
 
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -10,4 +11,5 @@ import lombok.*;
 @ToString
 public class MessageResponse {
     private String message;
+    private HttpStatus status;
 }

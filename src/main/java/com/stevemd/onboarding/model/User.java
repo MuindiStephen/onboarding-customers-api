@@ -34,8 +34,6 @@ public class User {
     @SequenceGenerator(name = "customer_sequence",sequenceName = "customer_sequence",allocationSize = 1)
     private Long id;
 
-    private Role role;
-
 
     @NotBlank
     @Size(max = 20)

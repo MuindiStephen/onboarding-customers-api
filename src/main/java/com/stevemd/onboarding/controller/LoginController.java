@@ -37,8 +37,8 @@ public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private  Authentication authentication;
+//    @Autowired
+//    private  Authentication authentication;
 
     @Autowired
     private AuthService authService;
@@ -49,30 +49,15 @@ public class LoginController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    /**
-     *
-     * @param loginRequest
-     * @param httpServletResponse
-     * @return
-     * @throws BadCredentialsException
-     * @throws DisabledException
-     * @throws NameNotFoundException
-     * @throws IOException
-     */
+
     @PostMapping(AppUtils.BASE_URL+"/login")
     public ResponseEntity<?> loginUserWithCreatedAuthenticationToken( @Valid
-            @RequestBody LoginRequest loginRequest, HttpServletResponse httpServletResponse
-    ) throws BadCredentialsException, DisabledException, NameNotFoundException, IOException {
-        try {
-             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    loginRequest.getEmail(),loginRequest.getPassword()
-            ));
-        } catch (BadCredentialsException e){
-             throw new BadCredentialsException("Incorrect username or password");
-        } catch (DisabledException e) {
-            httpServletResponse.sendError(HttpServletResponse.SC_FOUND,"User does not exist. Create Account first");
-            return null;
-        }
+            @RequestBody LoginRequest loginRequest
+    ) {
+
+        // Not need to autowire Authentication since obtaining it direct from Authentication Manager
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginRequest.getEmail(),loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

@@ -1,7 +1,11 @@
 package com.stevemd.onboarding.controller;
 
+import com.stevemd.onboarding.model.Role;
+import com.stevemd.onboarding.model.User;
+import com.stevemd.onboarding.model.User_Role;
 import com.stevemd.onboarding.payload.request.SignUpRequest;
-import com.stevemd.onboarding.payload.UserDTO;
+import com.stevemd.onboarding.payload.response.MessageResponse;
+import com.stevemd.onboarding.repository.RoleRepository;
 import com.stevemd.onboarding.repository.UserRepository;
 import com.stevemd.onboarding.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @RestController
@@ -19,6 +26,9 @@ public class RegisterController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -51,12 +61,38 @@ public class RegisterController {
 
         // Now create user's account
         // UserDTO is the API returns after signup of the new user
-        UserDTO signUpUser = authService.signUpUser(signUpRequest);
+        User signUpUser = authService.signUpUser(signUpRequest);
 
-        if (signUpUser == null) {
-            return new ResponseEntity<>("Failed to sign up user, please try again", HttpStatus.BAD_REQUEST);
+
+        Set<String> strRoles = Collections.singleton(signUpRequest.getRole());
+        Set<Role> roles = new HashSet<>();
+
+        for (String role : strRoles) {
+            switch (role) {
+                case "admin":
+                    Role adminRole = roleRepository.findByName(User_Role.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(adminRole);
+
+                    break;
+                case "moderator":
+                    Role modRole = roleRepository.findByName(User_Role.ROLE_MODERATOR)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(modRole);
+
+                    break;
+                default:
+                    Role userRole = roleRepository.findByName(User_Role.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(userRole);
+            }
         }
-        return ResponseEntity.ok("User Registered successfully");
-        // return new ResponseEntity<>("User Registered Successfully", HttpStatus.BAD_REQUEST);
+
+        signUpUser.setRoles(roles);
+        userRepository.save(signUpUser);
+
+
+        return ResponseEntity.ok(new MessageResponse("User Registered successfully", HttpStatus.ACCEPTED));
+        // Alternative statement: return new ResponseEntity<>("User Registered Successfully", HttpStatus.ACCEPTED);
     }
 }
