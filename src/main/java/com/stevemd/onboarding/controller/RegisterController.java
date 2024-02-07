@@ -39,9 +39,12 @@ public class RegisterController {
     public ResponseEntity<?> signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
         if (userRepository.existsByName(signUpRequest.getName())) {
-            return new ResponseEntity<>("Name is already taken", HttpStatus.BAD_REQUEST);
+            // return new ResponseEntity<>("Username is already taken! Try a new username",HttpStatus.BAD_REQUEST);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    // .badRequest()
+                    .body("Username is already taken, Try a new username");
         }
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return new ResponseEntity<>("Email is taken and is already in use by another account",HttpStatus.BAD_REQUEST);
         }
