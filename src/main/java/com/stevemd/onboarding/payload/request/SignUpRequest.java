@@ -14,4 +14,6 @@ public class SignUpRequest {
     private String email;
 
     private String password;
+
+    private String role; // need to know the role of a user before sign up ie. (admin, normal user, moderator)
 }

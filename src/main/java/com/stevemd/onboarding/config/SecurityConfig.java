@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
     @EnableMethodSecurity
     @Deprecated
     public class SecurityConfig extends WebSecurityConfigurerAdapter {
-       // Securely storing passwords
+        // Securely storing passwords
         @Bean
         public BCryptPasswordEncoder passwordEncoder() {
             return new BCryptPasswordEncoder();

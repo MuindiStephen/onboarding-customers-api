@@ -76,6 +76,8 @@ public class LoginController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+
+        // Authenticate user using email/username & password to create a JWT string with a secret
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
