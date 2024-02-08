@@ -1,4 +1,4 @@
-package com.stevemd.onboarding.payload;
+package com.stevemd.onboarding.response;
 
 import lombok.Data;
 
@@ -8,5 +8,5 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
-    //private String password;
+    private String password;
 }

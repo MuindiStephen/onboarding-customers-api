@@ -2,11 +2,11 @@ package com.stevemd.onboarding.payload.request;
 
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Data
@@ -15,13 +15,12 @@ public class SignUpRequest {
     @NotBlank
     private String name;
 
-    @NotBlank
+    @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
 
-    @NotBlank
+    @NotEmpty(message = "Email should not be empty")
     private String password;
 
-    @NotBlank
     private Set<String> role; // need to know the role of a user before sign up ie. (admin, normal user, moderator)
 }

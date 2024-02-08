@@ -1,4 +1,4 @@
-package com.stevemd.onboarding.payload.response;
+package com.stevemd.onboarding.response;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;

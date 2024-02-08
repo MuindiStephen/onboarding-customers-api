@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 
 /**
@@ -12,10 +13,10 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class LoginRequest {
 
-    @NotBlank
+    @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
 
-    @NotBlank
+    @NotEmpty(message = "Email should not be empty")
     private String password;
 }
