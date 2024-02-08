@@ -1,8 +1,10 @@
 package com.stevemd.onboarding.service.impl;
 
 
+import com.stevemd.onboarding.model.Role;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.payload.request.SignUpRequest;
+import com.stevemd.onboarding.repository.RoleRepository;
 import com.stevemd.onboarding.response.UniversalResponse;
 import com.stevemd.onboarding.response.UserDTO;
 import com.stevemd.onboarding.repository.UserRepository;
@@ -12,11 +14,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class AuthServiceImplm implements AuthService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -25,13 +33,13 @@ public class AuthServiceImplm implements AuthService {
     public UniversalResponse signUpUser(SignUpRequest signUpRequest) {
 
         if (userRepository.existsByName(signUpRequest.getName())) {
-            //return new UserDTO();
+
             // TODO - implement json here as return type
             return UniversalResponse.builder()
                     .status("1")
                     .message("Failed. Please input another username")
+                    .data(null)
                     .build();
-
         }
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return UniversalResponse.builder()
@@ -40,13 +48,6 @@ public class AuthServiceImplm implements AuthService {
                     .data(null)
                     .build();
         }
-        /* **
-         * User user = new User();
-            user.setName(signUpRequest.getName());
-            user.setEmail(signUpRequest.getEmail());
-            user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-             userRepository.save(user);
-         */
 
         // Use builder instead
          User user1 = User.builder()
@@ -54,12 +55,17 @@ public class AuthServiceImplm implements AuthService {
                  .email(signUpRequest.getEmail())
                  .password(passwordEncoder.encode(signUpRequest.getPassword()))
                  .build();
-         userRepository.save(user1);
 
+        Set<Role> roles = new HashSet<>();
+        Role userRole = roleRepository.findByName("ROLE_NAME").get();
+        roles.add(userRole);
+        user1.setRoles(roles);
+
+        userRepository.save(user1);
 
         return UniversalResponse.builder()
                 .status("0")
-                .message("Success: User registered successfully")
+                .message(HttpStatus.CREATED+" Success: User registered successfully")
                 .data(null)
                 .build();
     }
