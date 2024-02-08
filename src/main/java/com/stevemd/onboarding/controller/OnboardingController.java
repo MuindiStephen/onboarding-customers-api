@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class OnboardingController {
-    @GetMapping("/api/v2/onboarding")
+    @GetMapping(path = {"onboarding","testing"})
     public String hello() {
         return "Welcome to Onboarding!!!";
     }
