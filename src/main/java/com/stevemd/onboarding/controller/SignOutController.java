@@ -1,10 +1,5 @@
 package com.stevemd.onboarding.controller;
 
-import com.stevemd.onboarding.payload.response.MessageResponse;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
