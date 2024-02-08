@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "https://localhost:8088/")  // ("*")
+//@CrossOrigin(origins = "https://localhost:8088/")  // ("*")
 @RestController
 public class LoginController {
 

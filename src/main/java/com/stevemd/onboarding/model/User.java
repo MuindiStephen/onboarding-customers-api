@@ -18,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
+//@Builder
 @Table(name = "customers")
 public class User {
 

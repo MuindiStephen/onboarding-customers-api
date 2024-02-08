@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SignOutController {
 
+    /**
+     *
+     * Handle sign out functionality
+     */
 //    @PostMapping
 //    public ResponseEntity<?> signOut () {
 ////       ResponseCookie cookie = new ResponseCookie();
