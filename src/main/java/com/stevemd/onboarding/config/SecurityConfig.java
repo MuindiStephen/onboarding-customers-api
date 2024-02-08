@@ -35,15 +35,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return configuration.getAuthenticationManager();
     }
 
-    // To configure security rules
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().disable()  // disables cross site request forgery
+                .httpBasic().disable()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "api/v1/**").permitAll()
+                //.antMatchers("/api/v1/auth/**").permitAll()
                 .antMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest().authenticated() // any other request, require authentication
+                .antMatchers(HttpMethod.GET,"/onboarding").permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
