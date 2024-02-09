@@ -1,5 +1,6 @@
 package com.stevemd.onboarding.response;
 
+import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 @ToString
+@JsonSerializableSchema
 public class MessageResponse {
     private String message;
     private HttpStatus status;

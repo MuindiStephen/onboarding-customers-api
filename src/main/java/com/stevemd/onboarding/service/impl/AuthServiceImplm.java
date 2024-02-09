@@ -1,6 +1,8 @@
 package com.stevemd.onboarding.service.impl;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stevemd.onboarding.model.Role;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.payload.request.SignUpRequest;
@@ -11,6 +13,7 @@ import com.stevemd.onboarding.repository.UserRepository;
 import com.stevemd.onboarding.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +34,7 @@ public class AuthServiceImplm implements AuthService {
 
     @Override
     public UniversalResponse signUpUser(SignUpRequest signUpRequest) {
-
         if (userRepository.existsByName(signUpRequest.getName())) {
-
-            // TODO - implement json here as return type
             return UniversalResponse.builder()
                     .status("1")
                     .message("Failed. Please input another username")
@@ -43,8 +43,17 @@ public class AuthServiceImplm implements AuthService {
         }
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return UniversalResponse.builder()
-                    .message("Failed. Please input another email")
                     .status("1")
+                    .message("Failed. Please input another email")
+                    .data(null)
+                    .build();
+        }
+
+        // NOT WORKING
+        if (userRepository.existsByEmail(signUpRequest.getEmail()) || userRepository.existsByName(signUpRequest.getName())) {
+            return UniversalResponse.builder()
+                    .status("1")
+                    .message("username and email already taken")
                     .data(null)
                     .build();
         }
@@ -55,18 +64,14 @@ public class AuthServiceImplm implements AuthService {
                  .email(signUpRequest.getEmail())
                  .password(passwordEncoder.encode(signUpRequest.getPassword()))
                  .build();
-
-        Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("ROLE_NAME").get();
-        roles.add(userRole);
-        user1.setRoles(roles);
-
         userRepository.save(user1);
+
+        Long id = user1.getId();
 
         return UniversalResponse.builder()
                 .status("0")
-                .message(HttpStatus.CREATED+" Success: User registered successfully")
-                .data(null)
+                .message("Success")
+                .data("User id is "+id)
                 .build();
     }
 }
