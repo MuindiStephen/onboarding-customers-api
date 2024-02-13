@@ -39,6 +39,13 @@ public class User {
     @Column(name = "password",nullable = false)
     private String password;
 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     @ElementCollection(targetClass = Role.class) // establish rlship btwn users and their roles
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role", nullable = false)
