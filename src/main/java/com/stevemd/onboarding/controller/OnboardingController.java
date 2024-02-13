@@ -1,5 +1,4 @@
 package com.stevemd.onboarding.controller;
-import com.stevemd.onboarding.utils.AppUtils;
 import org.springframework.web.bind.annotation.*;
 
 
