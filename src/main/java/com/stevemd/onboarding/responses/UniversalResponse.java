@@ -1,6 +1,5 @@
-package com.stevemd.onboarding.response;
+package com.stevemd.onboarding.responses;
 
-import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

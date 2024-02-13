@@ -4,8 +4,7 @@ package com.stevemd.onboarding.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -40,7 +39,8 @@ public class User {
     @Column(name = "password",nullable = false)
     private String password;
 
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
+    @ElementCollection(targetClass = Role.class) // establish rlship btwn users and their roles
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role", nullable = false)
+    private Set<Role> roles;
 }

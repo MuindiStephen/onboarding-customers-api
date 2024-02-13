@@ -14,7 +14,9 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private RoleName name;  // RoleName is an enum that represents different roles, like ROLE_USER, ROLE_ADMIN, etc.
 }

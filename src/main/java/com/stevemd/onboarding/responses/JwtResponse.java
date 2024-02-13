@@ -1,4 +1,4 @@
-package com.stevemd.onboarding.response;
+package com.stevemd.onboarding.responses;
 
 import lombok.Getter;
 import lombok.Setter;
