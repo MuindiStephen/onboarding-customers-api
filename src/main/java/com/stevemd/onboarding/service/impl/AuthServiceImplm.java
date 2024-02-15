@@ -4,6 +4,7 @@ package com.stevemd.onboarding.service.impl;
 import com.stevemd.onboarding.model.Role;
 import com.stevemd.onboarding.model.RoleName;
 import com.stevemd.onboarding.model.User;
+import com.stevemd.onboarding.payload.request.LoginRequest;
 import com.stevemd.onboarding.payload.request.SignUpRequest;
 import com.stevemd.onboarding.repository.RoleRepository;
 import com.stevemd.onboarding.repository.UserRepository;
@@ -102,5 +103,11 @@ public class AuthServiceImplm implements AuthService {
                 .message("Success")
                 .data("User id is "+id)
                 .build();
+    }
+
+    @Override
+    public UniversalResponse signinUser(LoginRequest loginRequest) {
+        // TODO login action here
+        return null;
     }
 }

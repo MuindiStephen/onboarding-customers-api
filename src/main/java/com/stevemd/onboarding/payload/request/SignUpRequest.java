@@ -30,6 +30,8 @@ public class SignUpRequest {
     @NotEmpty(message = "Email should not be empty")
     private String password;
 
+    private Set<RoleName> roles;
+
     public Set<RoleName> getRoles() {
         return roles;
     }
@@ -38,5 +40,5 @@ public class SignUpRequest {
         this.roles = roles;
     }
 
-    private Set<RoleName> roles;
+
 }

@@ -1,6 +1,7 @@
 package com.stevemd.onboarding.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stevemd.onboarding.model.Role;
 import com.stevemd.onboarding.model.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
@@ -22,6 +24,8 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     @JsonIgnore
     private String password;
+
+;
 
 
     private Collection<? extends GrantedAuthority> authorities;

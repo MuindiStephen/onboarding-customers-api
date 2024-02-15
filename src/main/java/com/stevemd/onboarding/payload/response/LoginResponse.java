@@ -1,10 +1,13 @@
 package com.stevemd.onboarding.payload.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class LoginResponse {
-    private String jwt;
+    private String jwtToken;
 }
