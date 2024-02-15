@@ -13,10 +13,9 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class LoginRequest {
 
-    @NotEmpty(message = "Email should not be empty")
-    @Email
-    private String email;
 
-    @NotEmpty(message = "Email should not be empty")
+    private String name;
+
+
     private String password;
 }

@@ -12,10 +12,7 @@ import javax.persistence.Entity;
 @RestController
 @EntityScan
 public class OnboardingApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(OnboardingApplication.class, args);
-	}
-
-
+    public static void main(String[] args) {
+        SpringApplication.run(OnboardingApplication.class, args);
+    }
 }
