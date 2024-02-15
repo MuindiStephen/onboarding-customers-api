@@ -3,6 +3,7 @@ package com.stevemd.onboarding.payload.response;
 import lombok.*;
 
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,4 +11,6 @@ import lombok.*;
 @Setter
 public class LoginResponse {
     private String jwtToken;
+
+    private String message;
 }

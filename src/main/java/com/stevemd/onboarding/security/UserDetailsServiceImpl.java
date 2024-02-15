@@ -3,6 +3,7 @@ package com.stevemd.onboarding.security;
 import com.stevemd.onboarding.exceptions.UserNotFoundException;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.repository.UserRepository;
+import com.stevemd.onboarding.responses.UniversalResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,19 +24,31 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        log.info("Loading user by username: {}",name);
+        log.info("Loading user by username: {}.....",email);
         //log.info();
 
-        User user = userRepository.findByName(name)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> UserNotFoundException.builder()
-                        .message("User not found with username: {}"+name)
+                        .message("User not found with username: {}"+email)
                         .status("HTTP :404 not found")
                         .build());
 
-        log.info("User found:{}",name);
+       if (user==null){
+           handleUserNotFound(email);
+       }
+
+        // User lookup in the database
+        log.info("User found:{}",email);
 
        return UserDetailsImpl.build(user);
+    }
+
+    public UniversalResponse handleUserNotFound(String email) {
+        return UniversalResponse.builder()
+                .status("404")
+                .message("User not found with username: " + email)
+                .build();
     }
 }
