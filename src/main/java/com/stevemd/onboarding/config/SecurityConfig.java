@@ -33,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthTokenFilter jwtAuthTokenFilter;
 
+    @Autowired
+    private JwtAuthEntryPoint jwtAuthEntryPoint;
+
     // Securely storing passwords
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -60,6 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .httpBasic().disable()
+                .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()

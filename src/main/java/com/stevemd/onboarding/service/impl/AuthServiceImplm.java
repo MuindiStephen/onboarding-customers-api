@@ -1,24 +1,33 @@
 package com.stevemd.onboarding.service.impl;
 
 
+import com.stevemd.onboarding.config.JwtTokenProvider;
 import com.stevemd.onboarding.model.Role;
 import com.stevemd.onboarding.model.RoleName;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.payload.request.LoginRequest;
 import com.stevemd.onboarding.payload.request.SignUpRequest;
+import com.stevemd.onboarding.payload.response.LoginResponse;
 import com.stevemd.onboarding.repository.RoleRepository;
 import com.stevemd.onboarding.repository.UserRepository;
 import com.stevemd.onboarding.responses.UniversalResponse;
+import com.stevemd.onboarding.security.UserDetailsServiceImpl;
 import com.stevemd.onboarding.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Slf4j
 public class AuthServiceImplm implements AuthService {
 
     @Autowired
@@ -30,7 +39,15 @@ public class AuthServiceImplm implements AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthServiceImplm.class);
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
 
     public AuthServiceImplm(
             UserRepository userRepository,
@@ -90,10 +107,10 @@ public class AuthServiceImplm implements AuthService {
 
         userRepository.save(user1);
 
-        logger.info("------User Details and Profile:----");
-        logger.info("Name: {}", signUpRequest.getName());
-        logger.info("Email: {}", signUpRequest.getEmail());
-        logger.info("Roles: {}", signUpRequest.getRoles());
+        log.info("------User Details and Profile:----");
+        log.info("Name: {}", signUpRequest.getName());
+        log.info("Email: {}", signUpRequest.getEmail());
+        log.info("Roles: {}", signUpRequest.getRoles());
 
         // Access user's id after being created
         Long id = user1.getId();
@@ -106,8 +123,24 @@ public class AuthServiceImplm implements AuthService {
     }
 
     @Override
-    public UniversalResponse signinUser(LoginRequest loginRequest) {
-        // TODO login action here
-        return null;
+    public LoginResponse signinUser(LoginRequest loginRequest) {
+        try {
+            log.warn("email {} {}", loginRequest.getEmail(), loginRequest.getPassword());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    loginRequest.getEmail(), loginRequest.getPassword()));
+
+            final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
+
+            String accessToken = jwtTokenProvider.generateAccessToken(userDetails.getUsername());
+            String refreshToken = jwtTokenProvider.generateRefreshToken(userDetails.getUsername());
+
+            return new LoginResponse(accessToken,refreshToken, "You logged in successfully");
+
+        } catch (Exception e) {
+            log.error("Error occurred during login: {}", e.getMessage());
+            return LoginResponse.builder()
+                    .message("Bad credentials: User not found | " + HttpStatus.FORBIDDEN)
+                    .build();
+        }
     }
 }
