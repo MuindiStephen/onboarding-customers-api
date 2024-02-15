@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 public class LoginResponse {
-    private String jwtToken;
-
+    private String accessToken;
+    private String refreshToken;
     private String message;
 }

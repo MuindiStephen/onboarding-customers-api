@@ -28,17 +28,7 @@ public class RegisterController {
 
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-
-    @Autowired
     private AuthService authService;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
 
 
     public RegisterController(AuthService authService) {
@@ -48,28 +38,5 @@ public class RegisterController {
     @PostMapping(value = "/register")
     public UniversalResponse signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         return authService.signUpUser(signUpRequest);
-    }
-
-    @PostMapping("/login")
-    public LoginResponse loginUserWithCreatedAuthenticationToken(
-            @RequestBody LoginRequest loginRequest
-    ) {
-        // Not need to autowire Authentication since obtaining it direct from Authentication Manager
-        try {
-            log.warn("email {} {}", loginRequest.getEmail(), loginRequest.getPassword());
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    loginRequest.getEmail(), loginRequest.getPassword()));
-
-            final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
-
-            String jwt = jwtTokenProvider.generateToken(userDetails.getUsername());
-
-            return new LoginResponse(jwt, "You logged in successfully");
-        } catch (Exception e) {
-            log.error("Error occurred during login: {}", e.getMessage());
-            return LoginResponse.builder()
-                    .message("Bad credentials: User not found " + HttpStatus.FORBIDDEN)
-                    .build();
-        }
     }
 }
