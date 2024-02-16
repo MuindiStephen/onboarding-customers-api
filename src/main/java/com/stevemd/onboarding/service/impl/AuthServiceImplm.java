@@ -101,12 +101,12 @@ public class AuthServiceImplm implements AuthService {
         // Setting the specific role to the user
         Set<RoleName> role = signUpRequest.getRoles(); // retrieves roles from SignUpRequest where getRoles() retrieves a set of RoleNames
         Set<Role> roles = new HashSet<>(); //Initializes an empty HashSet named roles. This HashSet will hold instances of the Role entity,
-        if (role==null)
+        if (role == null)
             return UniversalResponse.builder()
-                .data(null)
-                .message("No user role")
-                .status("1")
-                .build();
+                    .data(null)
+                    .message("No user role")
+                    .status("1")
+                    .build();
 
         user1.setRoles(roles);
 
@@ -120,7 +120,7 @@ public class AuthServiceImplm implements AuthService {
 
 
         // Generate and save verification token
-        ConfirmationToken confirmationToken = new ConfirmationToken (
+        ConfirmationToken confirmationToken = new ConfirmationToken(
                 confirmationTokenService.generateToken(), user1, LocalDateTime.now().plusHours(24)
         );
 
@@ -153,7 +153,7 @@ public class AuthServiceImplm implements AuthService {
             String accessToken = jwtTokenProvider.generateAccessToken(userDetails.getUsername());
             String refreshToken = jwtTokenProvider.generateRefreshToken(userDetails.getUsername());
 
-            return new LoginResponse(accessToken,refreshToken, "You logged in successfully");
+            return new LoginResponse(accessToken, refreshToken, "You logged in successfully");
 
         } catch (Exception e) {
             log.error("Error occurred during login: {}", e.getMessage());
@@ -172,18 +172,25 @@ public class AuthServiceImplm implements AuthService {
         if (confirmationToken.getExpiresAt().isAfter(LocalDateTime.now().plusMinutes(15))) {
             // Token has expired, return error response
             User user = confirmationToken.getUser1();
-            log.info("Email verification failed for {} {}" +user.getEmail(),user.getName());
+            log.info("---Email verification failed for {} {}" + user.getEmail(), user.getName());
 
             return UniversalResponse.builder()
                     .status("1")
                     .message("Token has expired")
                     .build();
         }
+
+        if (confirmationToken.getConfirmedAt() != null) {
+            return UniversalResponse.builder()
+                    .status("1")
+                    .message("Email is already verified")
+                    .build();
+        }
         // Get the associated user
         User user = confirmationToken.getUser1();
 
         // Mark the user as verified;// Assuming you have an 'enabled' field in your User entity
-       // user.setEnabled(true);
+        // user.setEnabled(true);
 
         // Save the updated user
         userRepository.save(user);
@@ -191,7 +198,7 @@ public class AuthServiceImplm implements AuthService {
         // Delete the confirmation token
         confirmationTokenService.delete(confirmationToken);
 
-        log.info("Email verification successful for {} {}" +user.getEmail(),user.getName());
+        log.info("Email verification successful for {} {}" + user.getEmail(), user.getName());
         // Return success response
         return UniversalResponse.builder()
                 .status("0")
