@@ -13,16 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/register")
 @Slf4j
 public class RegisterController {
 
@@ -35,8 +32,13 @@ public class RegisterController {
         this.authService = authService;
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping
     public UniversalResponse signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         return authService.signUpUser(signUpRequest);
+    }
+
+    @GetMapping(path = "/verify-email")
+    public UniversalResponse confirmSignUpUserToken(@RequestParam("token") String token) {
+        return authService.confirmToken(token);
     }
 }

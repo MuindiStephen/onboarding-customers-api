@@ -12,4 +12,6 @@ public interface AuthService {
     UniversalResponse signUpUser(SignUpRequest signUpRequest);
 
     LoginResponse signinUser(LoginRequest loginRequest);
+
+    UniversalResponse confirmToken(String token);
 }
