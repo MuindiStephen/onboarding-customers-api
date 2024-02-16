@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-public class JwtAuthTokenFilter extends OncePerRequestFilter {
+public class JwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
@@ -27,7 +27,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    public JwtAuthTokenFilter(JwtTokenProvider jwtTokenProvider, UserDetailsServiceImpl userDetailsService) {
+    public JwtAuthorizationTokenFilter(JwtTokenProvider jwtTokenProvider, UserDetailsServiceImpl userDetailsService) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.userDetailsService = userDetailsService;
     }
