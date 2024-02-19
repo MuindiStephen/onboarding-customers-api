@@ -101,6 +101,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>spring-boot-user-microservice</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.flywaydb</groupId>
