@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
     // Securely storing passwords
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -66,22 +67,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/**",
-                        "/swagger-ui/**","/v3/api-docs/**", "/v2/api-docs", "/swagger-ui.html", "/swagger-resources/**", "/webjars/**"
-//                        "/v2/api-docs",
-//                        "/v1/api-docs",
-//                        "/v3/api-docs",
-//                        "/swagger-resources",
-//                        "/swagger-resources/**",
-//                        "/configurations/ui",
-//                        "/configurations/security",
-//                        "/swagger-ui/**",
-//                        "/webjars/**",
-//                        "/swagger-ui.html"
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/v2/api-docs",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/webjars/**"
                 ).permitAll()
-
-                //.antMatchers(HttpMethod.POST,"/register").permitAll()
-                //.antMatchers(HttpMethod.POST, "/login").permitAll()
-                //.antMatchers(HttpMethod.GET,"/onboarding").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
