@@ -121,7 +121,7 @@ public class AuthServiceImplm implements AuthService {
 
         // Generate and save verification token
         ConfirmationToken confirmationToken = new ConfirmationToken(
-                confirmationTokenService.generateToken(), user1, LocalDateTime.now().plusHours(24)
+                confirmationTokenService.generateToken(signUpRequest.getName()), user1, LocalDateTime.now().plusHours(24)
         );
 
         // saving token to the database

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -33,9 +34,21 @@ public class ConfirmationTokenService {
     }
 
 
-    public String generateToken() {
-        // Generate a random UUID (Universally Unique Identifier)
-        return UUID.randomUUID().toString();
+    public String generateToken(String name) {
+       // To generate a random six-digit code for email verification instead
+        Random random = new Random();
+        int code = 100000 + random.nextInt(999999); // Generate a random number between 100000 and 999999
+        return "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "    <title>Welcome to Onboarding</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <h1>Hi " + name + ",</h1>\n" +
+                "    <p>Thank you for signing up! Please verify your email address to complete the registration process.</p>\n" +
+                "    <p>The generated token is: <strong>" + code + "</strong></p>\n" +
+                "</body>\n" +
+                "</html>\n";
     }
 
     public void delete(ConfirmationToken confirmationToken) {

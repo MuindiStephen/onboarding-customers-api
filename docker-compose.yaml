@@ -1,0 +1,22 @@
+version: '3'
+
+# Individual services in isolated containers
+services:
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/onboarding
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin0000
+    ports:
+      - "8085:8085"
+
+  postgresql:
+    image: postgres
+    environment:
+      POSTGRES_DB: onboarding
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin0000
+
