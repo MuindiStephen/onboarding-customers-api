@@ -1,4 +1,4 @@
-package com.stevemd.onboarding.payload.request;
+package com.stevemd.onboarding.wrappers.request;
 
 
 import com.stevemd.onboarding.model.RoleName;

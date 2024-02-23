@@ -1,4 +1,4 @@
-package com.stevemd.onboarding.payload.response;
+package com.stevemd.onboarding.wrappers.response;
 
 import lombok.Data;
 

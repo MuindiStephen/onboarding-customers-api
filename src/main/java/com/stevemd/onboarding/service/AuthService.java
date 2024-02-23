@@ -1,9 +1,9 @@
 package com.stevemd.onboarding.service;
 
 
-import com.stevemd.onboarding.payload.request.LoginRequest;
-import com.stevemd.onboarding.payload.request.SignUpRequest;
-import com.stevemd.onboarding.payload.response.LoginResponse;
+import com.stevemd.onboarding.wrappers.request.LoginRequest;
+import com.stevemd.onboarding.wrappers.request.SignUpRequest;
+import com.stevemd.onboarding.wrappers.response.LoginResponse;
 import com.stevemd.onboarding.responses.UniversalResponse;
 import org.springframework.stereotype.Service;
 
