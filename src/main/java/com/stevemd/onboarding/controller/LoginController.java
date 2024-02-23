@@ -1,7 +1,7 @@
 package com.stevemd.onboarding.controller;
 
-import com.stevemd.onboarding.payload.request.LoginRequest;
-import com.stevemd.onboarding.payload.response.LoginResponse;
+import com.stevemd.onboarding.wrappers.request.LoginRequest;
+import com.stevemd.onboarding.wrappers.response.LoginResponse;
 import com.stevemd.onboarding.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
