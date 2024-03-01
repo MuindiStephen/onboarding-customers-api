@@ -3,6 +3,8 @@
 - It is an auth microservice that performs sign-up. email verification, sign-in, token generation(jwts)
 - Deployed using docker-compose because it contains 2 servioes that isPostgresSQL DB & Springboot application itself to docker containerised environment
 
+> NB: Migrate to Microservices . Check this repo
+
 ```
 MIT License
 
