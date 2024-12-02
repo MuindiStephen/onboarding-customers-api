@@ -24,11 +24,13 @@ public class RegisterController {
         this.authService = authService;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public UniversalResponse signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         return authService.signUpUser(signUpRequest);
     }
 
+    @CrossOrigin(origins = "*") // allow access from angular frontend
     @GetMapping(path = "/verify-email")
     public UniversalResponse confirmSignUpUserToken(@RequestParam("token") String token) {
         return authService.confirmToken(token);

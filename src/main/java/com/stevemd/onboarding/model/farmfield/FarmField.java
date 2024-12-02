@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "farmfield")
+@Table(name = "farmfields")
 public class FarmField {
     @Id
     @SequenceGenerator(
