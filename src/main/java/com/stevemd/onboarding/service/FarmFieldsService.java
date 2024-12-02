@@ -29,18 +29,18 @@ public class FarmFieldsService {
     }
 
     // add a new farm field
-    public void addNewFarmField(FarmField farmField) {
+    public FarmFieldResponse addNewFarmField(FarmField farmField) {
 
         Optional<FarmField> farmFieldByName =
                 farmFieldsRepository.findFarmFieldByFarmName(farmField.getFarmName());
 
         if (farmFieldByName.isPresent()) {
 
-            FarmFieldResponse.builder()
+           return FarmFieldResponse.builder()
                     .status("1")
                     .message("Farm already exist. Farm field is not created.")
                     .build();
-            return;
+
 
             //throw new IllegalStateException("The Farm already exists.");
         }
@@ -52,10 +52,11 @@ public class FarmFieldsService {
 
         log.info(String.valueOf(HttpStatus.CREATED));
 
-        FarmFieldResponse.builder()
+        return FarmFieldResponse.builder()
                 .status("00")
                 .message("Farm Created successfully.")
                 .build();
+
     }
 
     public void deleteFarmField(Long farmId) {

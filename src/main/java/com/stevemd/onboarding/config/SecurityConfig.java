@@ -71,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/auth/**",
+                        "/agrisasa/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/v2/api-docs",
