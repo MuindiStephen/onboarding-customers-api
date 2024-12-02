@@ -33,10 +33,10 @@ import java.util.Set;
 public class AuthServiceImplm implements AuthService {
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -48,12 +48,13 @@ public class AuthServiceImplm implements AuthService {
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    private ConfirmationTokenService confirmationTokenService;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @Autowired
     private EmailSender emailSender;
 
 
+    // Instantiation
     public AuthServiceImplm(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
@@ -66,7 +67,7 @@ public class AuthServiceImplm implements AuthService {
 
     @Override
     public UniversalResponse signUpUser(SignUpRequest signUpRequest) {
-        if (userRepository.existsByName(signUpRequest.getName())) {
+        if (userRepository.existsByName(signUpRequest.getUsername())) {
             return UniversalResponse.builder()
                     .status("1")
                     .message("Failed. Please input another username")
@@ -82,46 +83,47 @@ public class AuthServiceImplm implements AuthService {
         }
 
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail()) || userRepository.existsByName(signUpRequest.getName())) {
+        if (userRepository.existsByEmail(signUpRequest.getEmail()) || userRepository.existsByName(signUpRequest.getUsername())) {
             return UniversalResponse.builder()
                     .status("1")
-                    .message("username and email already taken")
+                    .message("username and email already taken. Already in use by another account.")
                     .data(null)
                     .build();
         }
 
         // Use builder instead
         User user1 = User.builder()
-                .name(signUpRequest.getName())
+                .name(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .build();
 
 
-        // Setting the specific role to the user
-        Set<RoleName> role = signUpRequest.getRoles(); // retrieves roles from SignUpRequest where getRoles() retrieves a set of RoleNames
-        Set<Role> roles = new HashSet<>(); //Initializes an empty HashSet named roles. This HashSet will hold instances of the Role entity,
-        if (role == null)
-            return UniversalResponse.builder()
-                    .data(null)
-                    .message("No user role")
-                    .status("1")
-                    .build();
-
-        user1.setRoles(roles);
+//        // Setting the specific role to the user
+//        Set<RoleName> role = signUpRequest.getRoles(); // retrieves roles from SignUpRequest where getRoles() retrieves a set of RoleNames
+//        Set<Role> roles = new HashSet<>(); //Initializes an empty HashSet named roles. This HashSet will hold instances of the Role entity,
+//        if (role == null)
+//            return UniversalResponse.builder()
+//                    .data(null)
+//                    .message("No user role")
+//                    .status("1")
+//                    .build();
+//
+//        user1.setRoles(roles);
 
 
         userRepository.save(user1);
 
         log.info("------User Details and Profile:----");
-        log.info("Name: {}", signUpRequest.getName());
+        log.info("Name: {}", signUpRequest.getUsername());
         log.info("Email: {}", signUpRequest.getEmail());
-        log.info("Roles: {}", signUpRequest.getRoles());
+       // log.info("Roles: {}", signUpRequest.getRoles());
 
 
         // Generate and save verification token
+        /*
         ConfirmationToken confirmationToken = new ConfirmationToken(
-                confirmationTokenService.generateToken(signUpRequest.getName()), user1, LocalDateTime.now().plusHours(24)
+                confirmationTokenService.generateToken(signUpRequest.getUsername()), user1, LocalDateTime.now().plusHours(24)
         );
 
         // saving token to the database
@@ -132,12 +134,14 @@ public class AuthServiceImplm implements AuthService {
 
         log.info("User registered successfully. Email verification sent!!!");
 
+         */
+
 
 //        userDetailsImpl.isEnabled();  // set to be false
 //
         return UniversalResponse.builder()
-                .status("0")
-                .message("Registered successfully. \nPlease check your email for verification")
+                .status("00")
+                .message("Registered successfully. \nLogin to the account.")
                 .build();
     }
 
@@ -153,11 +157,12 @@ public class AuthServiceImplm implements AuthService {
             String accessToken = jwtTokenProvider.generateAccessToken(userDetails.getUsername());
             String refreshToken = jwtTokenProvider.generateRefreshToken(userDetails.getUsername());
 
-            return new LoginResponse(accessToken, refreshToken, "You logged in successfully");
+            return new LoginResponse("00",accessToken, refreshToken, "You logged in successfully");
 
         } catch (Exception e) {
             log.error("Error occurred during login: {}", e.getMessage());
             return LoginResponse.builder()
+                    .status("1")
                     .message("Bad credentials: User not found | " + HttpStatus.FORBIDDEN)
                     .build();
         }
@@ -204,6 +209,5 @@ public class AuthServiceImplm implements AuthService {
                 .status("0")
                 .message("Email verified successfully")
                 .build();
-
     }
 }

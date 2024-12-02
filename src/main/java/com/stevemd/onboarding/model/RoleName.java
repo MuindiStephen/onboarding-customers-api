@@ -6,7 +6,9 @@ package com.stevemd.onboarding.model;
  */
 
 public enum RoleName {
-    ROLE_USER,
-    ROLE_ADMIN;
+    ROLE_FARMER,
+    ROLE_ADMIN,
+    ROLE_FIELDAGENT,
+    ROLE_BUYER
 }
 

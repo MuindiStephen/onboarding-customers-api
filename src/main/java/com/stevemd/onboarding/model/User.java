@@ -12,6 +12,8 @@ import java.util.Set;
  * @User is a POJO class [Data Model] to represent database programming.
  * It holds or represents persistent data or data that can be sustained even if
  * the process is changed or removed.
+ *
+ * Object Relational Mapping.
  */
 @Entity
 @NoArgsConstructor

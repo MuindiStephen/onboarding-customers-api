@@ -1,44 +1,48 @@
-package com.stevemd.onboarding.wrappers.request;
+    package com.stevemd.onboarding.wrappers.request;
 
 
-import com.stevemd.onboarding.model.RoleName;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+    import com.stevemd.onboarding.model.RoleName;
+    import lombok.Data;
+    import lombok.Getter;
+    import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.Set;
+    import javax.validation.constraints.Email;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.NotEmpty;
+    import javax.validation.constraints.Size;
+    import java.util.Set;
 
-@Setter
-@Getter
-@Data
-public class SignUpRequest {
+    @Setter
+    @Getter
+    @Data
+    public class SignUpRequest {
 
-    @NotBlank
-    @Size(min = 3, max = 50)
-    private String name;
+        @Size(min = 3, max = 100)
+        @NotEmpty(message = "Username is too short or invalid")
+        private String username;
 
-    @NotEmpty(message = "Email should not be empty")
-    @Size(max = 50)
-    @Email
-    private String email;
+        @NotEmpty(message = "Email should not be empty or invalid")
+        @Size(max = 100)
+        @Email
+        private String email;
 
-    @Size(min = 6, max = 100)
-    @NotEmpty(message = "Email should not be empty")
-    private String password;
+        @Size(min = 6, max = 100)
+        @NotEmpty(message = "Password is empty or too short")
+        private String password;
 
-    private Set<RoleName> roles;
+        @Size(min = 6, max = 100)
+        @NotEmpty(message = "Confirm Password is empty or too short or does not match")
+        private String confirmPassword;
 
-    public Set<RoleName> getRoles() {
-        return roles;
+    //    private Set<RoleName> roles;
+    //
+    //    public Set<RoleName> getRoles() {
+    //        return roles;
+    //    }
+    //
+    //    public void setRoles(Set<RoleName> roles) {
+    //        this.roles = roles;
+    //    }
+
+
     }
-
-    public void setRoles(Set<RoleName> roles) {
-        this.roles = roles;
-    }
-
-
-}

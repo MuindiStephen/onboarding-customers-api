@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/onboarding
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/agrisasa
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: admin0000
     ports:
