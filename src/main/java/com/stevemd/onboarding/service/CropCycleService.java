@@ -38,7 +38,7 @@ public class CropCycleService {
 
             return CropCycleResponse.builder()
                     .status("1")
-                    .message("Crop cycle already exist.")
+                    .message("Crop cycle already exist. There's a current underway crop cycle going on.")
                     .build();
         }
 

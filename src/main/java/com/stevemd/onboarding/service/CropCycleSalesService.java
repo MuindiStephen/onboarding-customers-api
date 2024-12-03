@@ -4,10 +4,15 @@ package com.stevemd.onboarding.service;
 import com.stevemd.onboarding.model.cropcyclefinancialdata.CropCycleSales;
 import com.stevemd.onboarding.repository.CropCycleSalesRepository;
 import com.stevemd.onboarding.responses.CommonResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Slf4j
 public class CropCycleSalesService {
 
     private final CropCycleSalesRepository cropCycleSalesRepository;
@@ -19,6 +24,20 @@ public class CropCycleSalesService {
 
     public List<CropCycleSales> cropCycleSales() {
         return cropCycleSalesRepository.findAll();
+    }
+
+    public CommonResponse createANewCropCycleSaleRecord(CropCycleSales cropCycleSales) {
+
+        cropCycleSalesRepository.save(cropCycleSales);
+
+        System.out.println("Created a new crop cycle sale record: "+cropCycleSales);
+
+        log.info(String.valueOf(HttpStatus.CREATED));
+
+        return CommonResponse.builder()
+                .status("00")
+                .message("Crop cycle sale record created successfully.")
+                .build();
     }
 
     public CommonResponse deleteCycleSales() {

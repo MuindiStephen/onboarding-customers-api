@@ -28,7 +28,7 @@ public class CropCycle {
     private String cropName;
 
     @Column(nullable = false)
-    private String startDate;
+        private String startDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "farm_cycle_id") // Foreign key to link with LocalFarmCycle

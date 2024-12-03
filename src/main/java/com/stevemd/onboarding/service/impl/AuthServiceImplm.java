@@ -5,8 +5,6 @@ import com.stevemd.onboarding.config.JwtTokenProvider;
 import com.stevemd.onboarding.config.email.EmailSender;
 import com.stevemd.onboarding.config.token.ConfirmationToken;
 import com.stevemd.onboarding.config.token.ConfirmationTokenService;
-import com.stevemd.onboarding.model.Role;
-import com.stevemd.onboarding.model.RoleName;
 import com.stevemd.onboarding.model.User;
 import com.stevemd.onboarding.wrappers.request.LoginRequest;
 import com.stevemd.onboarding.wrappers.request.SignUpRequest;
@@ -25,8 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @Slf4j
