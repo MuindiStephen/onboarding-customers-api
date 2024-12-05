@@ -19,7 +19,6 @@ public class RegisterController {
     @Autowired
     private AuthService authService;
 
-
     public RegisterController(AuthService authService) {
         this.authService = authService;
     }
