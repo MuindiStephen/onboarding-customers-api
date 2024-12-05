@@ -22,11 +22,12 @@ public class AgroDealerService {
         this.agroDealerRepository = agroDealerRepository;
     }
 
+    // Get a list of All Available Agro-dealers
     public List<AgroDealer> agroDealers() {
         return agroDealerRepository.findAll();
     }
 
-    // add a new farm field
+    // Register a new agrodealer
     public CommonResponse addNewAgrodealer(AgroDealer agroDealer) {
 
         Optional<AgroDealer> agroDealerByAgrodealerName =
@@ -38,12 +39,9 @@ public class AgroDealerService {
                     .status("1")
                     .message("Similar agrodealer exist!")
                     .build();
-
-
-            //throw new IllegalStateException("The Farm already exists.");
         }
 
-
+        agroDealer.setStatus("Pending");
         agroDealerRepository.save(agroDealer);
 
         System.out.println("Created a new agrodealer: "+agroDealer);
@@ -55,5 +53,64 @@ public class AgroDealerService {
                 .message("Agrodealer Created successfully.")
                 .build();
 
+    }
+
+    // Approve created Agrodeealers
+    // Approve an agrodealer
+    public CommonResponse approveAgroDealer(AgroDealer agroDealer) {
+
+        Optional<AgroDealer> agroDealerById = agroDealerRepository.findById(agroDealer.getId());
+
+        if (!agroDealerById.isPresent()) {
+            return CommonResponse.builder()
+                    .status("1")
+                    .message("Agrodealer not found")
+                    .build();
+        }
+
+
+        if ("Approved".equalsIgnoreCase(agroDealer.getStatus())) {
+            return CommonResponse.builder()
+                    .status("00")
+                    .message("Agrodealer is already approved.")
+                    .build();
+        }
+
+        agroDealer.setStatus("Approved");
+        agroDealerRepository.save(agroDealer);
+
+        log.info("Approved agrodealer: {}", agroDealer);
+        return CommonResponse.builder()
+                .status("00")
+                .message("Agrodealer approved successfully.")
+                .build();
+    }
+
+    // Reject an agrodealer
+    public CommonResponse rejectAgroDealer(Long id, String reason) {
+        AgroDealer agroDealer = agroDealerRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Agrodealer not found."));
+
+        if ("Rejected".equalsIgnoreCase(agroDealer.getStatus())) {
+            return CommonResponse.builder()
+                    .status("1")
+                    .message("Agrodealer is already rejected.")
+                    .build();
+        }
+
+        agroDealer.setStatus("Rejected");
+        agroDealer.setRejectionReason(reason);
+        agroDealerRepository.save(agroDealer);
+
+        log.info("Rejected agrodealer: {}", agroDealer);
+        return CommonResponse.builder()
+                .status("00")
+                .message("Agrodealer rejected successfully.")
+                .build();
+    }
+
+    // Get all pending approvals - agrodealers
+    public List<AgroDealer> getPendingApprovals() {
+        return agroDealerRepository.findByStatus("Pending");
     }
 }

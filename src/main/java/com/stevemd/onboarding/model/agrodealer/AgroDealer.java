@@ -1,14 +1,12 @@
 package com.stevemd.onboarding.model.agrodealer;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@Data
 @Entity
 @Table(name = "agrodealers")
 @NoArgsConstructor
@@ -39,4 +37,10 @@ public class AgroDealer {
 
     @Column(nullable = false)
     private String agrodealerFarmInputProductCost;
+
+    @Column(nullable = true)
+    private String status; // Pending, Approved, Rejected
+
+    @Column(nullable = true)
+    private String rejectionReason;
 }
