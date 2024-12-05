@@ -1,7 +1,7 @@
 package com.stevemd.onboarding.controller.fieldagent;
 
 import com.stevemd.onboarding.responses.UniversalResponse;
-import com.stevemd.onboarding.service.farmer.AuthService;
+import com.stevemd.onboarding.service.fieldagent.AuthService;
 import com.stevemd.onboarding.wrappers.request.SignUpRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

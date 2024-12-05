@@ -6,7 +6,7 @@ import com.stevemd.onboarding.config.email.EmailSender;
 import com.stevemd.onboarding.config.token.ConfirmationToken;
 import com.stevemd.onboarding.config.token.ConfirmationTokenService;
 import com.stevemd.onboarding.model.User;
-import com.stevemd.onboarding.repository.farmer.UserRepository;
+import com.stevemd.onboarding.repository.fieldagent.UserRepository;
 import com.stevemd.onboarding.responses.UniversalResponse;
 import com.stevemd.onboarding.security.UserDetailsServiceImpl;
 import com.stevemd.onboarding.wrappers.request.LoginRequest;
@@ -113,26 +113,6 @@ public class AuthServiceImplm implements AuthService {
         log.info("Name: {}", signUpRequest.getUsername());
         log.info("Email: {}", signUpRequest.getEmail());
        // log.info("Roles: {}", signUpRequest.getRoles());
-
-
-        // Generate and save verification token
-        /*
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-                confirmationTokenService.generateToken(signUpRequest.getUsername()), user1, LocalDateTime.now().plusHours(24)
-        );
-
-        // saving token to the database
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
-
-        // Send verification email
-        emailSender.sendVerificationEmail(signUpRequest.getEmail(), confirmationToken.getToken());
-
-        log.info("User registered successfully. Email verification sent!!!");
-
-         */
-
-
-//        userDetailsImpl.isEnabled();  // set to be false
 //
         return UniversalResponse.builder()
                 .status("00")

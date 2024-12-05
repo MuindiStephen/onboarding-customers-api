@@ -1,6 +1,7 @@
 package com.stevemd.onboarding.controller.fieldagent;
 
-import com.stevemd.onboarding.service.farmer.AuthService;
+
+import com.stevemd.onboarding.service.fieldagent.AuthService;
 import com.stevemd.onboarding.wrappers.request.LoginRequest;
 import com.stevemd.onboarding.wrappers.response.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
