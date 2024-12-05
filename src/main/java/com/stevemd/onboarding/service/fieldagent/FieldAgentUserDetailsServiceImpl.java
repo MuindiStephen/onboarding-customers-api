@@ -2,7 +2,7 @@ package com.stevemd.onboarding.service.fieldagent;
 
 import com.stevemd.onboarding.exceptions.UserNotFoundException;
 import com.stevemd.onboarding.model.User;
-import com.stevemd.onboarding.repository.fieldagent.UserRepository;
+import com.stevemd.onboarding.repository.fieldagent.FieldAgentUserRepository;
 import com.stevemd.onboarding.responses.UniversalResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class FieldAgentUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private FieldAgentUserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public FieldAgentUserDetailsServiceImpl(FieldAgentUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -42,7 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // User lookup in the database
         log.info("User found:{}",email);
 
-       return UserDetailsImpl.build(user);
+       return FieldAgentUserDetailsImpl.build(user);
     }
 
     public UniversalResponse handleUserNotFound(String email) {

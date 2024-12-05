@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @EnableJpaRepositories
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface FieldAgentUserRepository extends JpaRepository<User,Long> {
 
     Boolean existsByEmail(String email);
     Boolean existsByName(String name);

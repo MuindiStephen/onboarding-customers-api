@@ -2,10 +2,7 @@ package com.stevemd.onboarding.model.farmerorder;
 
 import lombok.*;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Embeddable
 @Getter
@@ -16,6 +13,11 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FarmInputAgroDealerCartItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne
     private AgroDealerOffers offerProduct;
 

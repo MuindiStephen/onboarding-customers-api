@@ -1,7 +1,7 @@
 package com.stevemd.onboarding.controller.fieldagent;
 
 
-import com.stevemd.onboarding.service.fieldagent.AuthService;
+import com.stevemd.onboarding.service.fieldagent.FieldAgentAuthService;
 import com.stevemd.onboarding.wrappers.request.LoginRequest;
 import com.stevemd.onboarding.wrappers.response.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth/fieldagent")
-public class LoginController {
+public class FieldAgentLoginController {
 
     @Autowired
-    private AuthService authService;
+    private FieldAgentAuthService authService;
 
     @CrossOrigin(origins = "*")
     @PostMapping("/login")

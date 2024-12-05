@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 public class OrderCheckoutByFarmerService {
 
     private final OrderCheckoutByFarmerRepository orderRepository;
@@ -22,13 +22,25 @@ public class OrderCheckoutByFarmerService {
 
     // Add new cart item
     public CommonResponse placeOrder(OrderCheckoutByFarmer order) {
-        orderRepository.save(order);
 
-        log.info("Cart items were added and order was placed successfully.");
-        return CommonResponse.builder()
-                .status("00")
-                .message("Order submitted successfully.")
-                .build();
+       try {
+           orderRepository.save(order);
+
+           log.info("Cart items were added and order was placed successfully.");
+           return CommonResponse.builder()
+                   .status("00")
+                   .message("Order submitted successfully.")
+                   .build();
+       } catch (Exception e) {
+           log.error("Error occurred while placing the order: ", e);
+
+           // Return an error response
+           return CommonResponse.builder()
+                   .status("1")
+                   .message("Failed to place the order. Please try again later.")
+                   .build();
+
+       }
     }
 
     // Get all orders specific to an AgroDealer ID

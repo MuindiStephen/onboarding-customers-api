@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserDetailsImpl implements UserDetails {
+public class FieldAgentUserDetailsImpl implements UserDetails {
 
     @Getter
     private final Long id;
@@ -27,8 +27,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String name, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+    public FieldAgentUserDetailsImpl(Long id, String name, String email, String password,
+                                     Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -36,12 +36,12 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static FieldAgentUserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserDetailsImpl(
+        return new FieldAgentUserDetailsImpl(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
@@ -89,7 +89,7 @@ public class UserDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserDetailsImpl user = (UserDetailsImpl) o;
+        FieldAgentUserDetailsImpl user = (FieldAgentUserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }
 }

@@ -8,7 +8,7 @@ import com.stevemd.onboarding.wrappers.response.LoginResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface AuthService {
+public interface FieldAgentAuthService {
     UniversalResponse signUpUser(SignUpRequest signUpRequest);
 
     LoginResponse signinUser(LoginRequest loginRequest);

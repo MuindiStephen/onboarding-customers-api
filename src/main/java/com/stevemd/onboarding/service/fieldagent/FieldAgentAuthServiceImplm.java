@@ -6,7 +6,7 @@ import com.stevemd.onboarding.config.email.EmailSender;
 import com.stevemd.onboarding.config.token.ConfirmationToken;
 import com.stevemd.onboarding.config.token.ConfirmationTokenService;
 import com.stevemd.onboarding.model.User;
-import com.stevemd.onboarding.repository.fieldagent.UserRepository;
+import com.stevemd.onboarding.repository.fieldagent.FieldAgentUserRepository;
 import com.stevemd.onboarding.responses.UniversalResponse;
 import com.stevemd.onboarding.security.UserDetailsServiceImpl;
 import com.stevemd.onboarding.wrappers.request.LoginRequest;
@@ -25,10 +25,10 @@ import java.time.LocalDateTime;
 
 @Service
 @Slf4j
-public class AuthServiceImplm implements AuthService {
+public class FieldAgentAuthServiceImplm implements FieldAgentAuthService {
 
     @Autowired
-    private final UserRepository userRepository;
+    private final FieldAgentUserRepository userRepository;
 
     @Autowired
     private final PasswordEncoder passwordEncoder;
@@ -50,8 +50,8 @@ public class AuthServiceImplm implements AuthService {
 
 
     // Instantiation
-    public AuthServiceImplm(
-            UserRepository userRepository,
+    public FieldAgentAuthServiceImplm(
+            FieldAgentUserRepository userRepository,
             PasswordEncoder passwordEncoder,
             ConfirmationTokenService confirmationTokenService
     ) {
