@@ -19,13 +19,14 @@ public class OrderCheckoutByFarmer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @ElementCollection
-    @CollectionTable(name = "order_cart_items", joinColumns = @JoinColumn(name = "order_id"))
+    // Mapping the cart items with a One-to-Many relationship
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private List<FarmInputAgroDealerCartItem> cartOrder;
 
     private String farmerLocation;
     private String farmEmail;
     private String agrodealerID;
-    private String orderStatus;
+    private String orderStatus; // e.g., "PENDING", "APPROVED", "COMPLETED"
     private Double totalOrderInMoney;
 }
