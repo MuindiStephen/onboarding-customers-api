@@ -28,5 +28,4 @@ public class OrderCheckoutByFarmer {
     private String agrodealerID;
     private String orderStatus;
     private Double totalOrderInMoney;
-
 }
