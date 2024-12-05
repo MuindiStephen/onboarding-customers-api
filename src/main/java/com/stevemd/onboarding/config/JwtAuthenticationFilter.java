@@ -1,6 +1,6 @@
 //package com.stevemd.onboarding.config;
 //
-//import com.stevemd.onboarding.service.AuthService;
+//import com.stevemd.onboarding.service.farmer.AuthService;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.security.authentication.AuthenticationManager;

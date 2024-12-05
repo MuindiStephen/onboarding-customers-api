@@ -2,7 +2,7 @@ package com.stevemd.onboarding.security;
 
 import com.stevemd.onboarding.exceptions.UserNotFoundException;
 import com.stevemd.onboarding.model.User;
-import com.stevemd.onboarding.repository.UserRepository;
+import com.stevemd.onboarding.repository.farmer.UserRepository;
 import com.stevemd.onboarding.responses.UniversalResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
