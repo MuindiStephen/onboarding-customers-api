@@ -14,7 +14,7 @@ import javax.validation.Valid;
  * Field agent controller
  */
 @RestController
-@RequestMapping("/auth/fieldagent/register")
+@RequestMapping("/auth/")
 @Slf4j
 public class FieldAgentRegisterController {
 
@@ -26,7 +26,7 @@ public class FieldAgentRegisterController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping
+    @PostMapping("fieldagent/register")
     public UniversalResponse signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         return authService.signUpUser(signUpRequest);
     }

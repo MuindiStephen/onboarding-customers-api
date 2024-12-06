@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @Controller
-@RequestMapping(path = "/agrisasa/cropcycles/")
+@RequestMapping(path = "/agrisasa/")
 public class CropCycleController {
 
     private final CropCycleService cropCycleService;
@@ -23,13 +23,13 @@ public class CropCycleController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(path = "createdcropcycles")
+    @GetMapping(path = "cropcycles/createdcropcycles")
     public List<CropCycle> createdFarmFields() {
         return cropCycleService.cropCycles();
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "create")
+    @PostMapping(path = "cropcycles/create")
     public CropCycleResponse createANewCropCycle(@RequestBody CropCycle cropCycle) {
         return cropCycleService.addNewCropCycle(cropCycle);
     }

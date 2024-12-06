@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/agrisasa/farmproducts/")
+@RequestMapping(path = "/agrisasa/")
 public class RegisterFarmProductsController {
 
     private final RegisterFarmProductsService registerFarmProductsService;
@@ -31,7 +31,7 @@ public class RegisterFarmProductsController {
      * @return Return a list of available farm products available to the buyer.
      */
     @CrossOrigin(origins = "*")
-    @GetMapping(path = "all")
+    @GetMapping(path = "farmproducts/all")
     public List<RegisterFarmProducts> allFarmProducts() {
         return registerFarmProductsService.farmProducts();
     }
@@ -48,7 +48,7 @@ public class RegisterFarmProductsController {
      * @return
      */
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "add", consumes = {"multipart/form-data"})
+    @PostMapping(path = "farmproducts/add", consumes = {"multipart/form-data"})
     public CommonResponse registerNewFarmProduct(
             @RequestParam("productName") String productName,
             @RequestParam("pricePerUnit") double pricePerUnit,

@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth/farmer")
+@RequestMapping("/auth/")
 public class LoginController {
 
     @Autowired
     private AuthService authService;
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/login")
+    @PostMapping("farmer/login")
     public LoginResponse loginUserWithCreatedAuthenticationToken(
             @RequestBody LoginRequest loginRequest
     ) {

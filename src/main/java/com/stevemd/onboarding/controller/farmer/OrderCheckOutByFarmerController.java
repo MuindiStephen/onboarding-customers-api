@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/agrisasa/farmer/orders")
+@RequestMapping("/agrisasa/")
 public class OrderCheckOutByFarmerController {
 
     private final OrderCheckoutByFarmerService orderService;
@@ -21,39 +21,39 @@ public class OrderCheckOutByFarmerController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/placeorder")
+    @PostMapping("farmer/orders/placeorder")
     public CommonResponse placeAnOrder(@RequestBody OrderCheckoutByFarmer order) {
         return orderService.placeOrder(order);
     }
 
     // Get specific orders for an AgroDealer ID placed by a farmer
     @CrossOrigin(origins = "*")
-    @GetMapping("/agrodealer/specificorders/{id}")
+    @GetMapping("farmer/orders/agrodealer/specificorders/{id}")
     public List<OrderCheckoutByFarmer> getSpecificOrdersForAgrodealerID(@PathVariable("id") String agrodealerId) {
         return orderService.getSpecificOrdersForAgrodealerID(agrodealerId);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/allordersplaced")
+    @GetMapping("farmer/orders/allordersplaced")
     public List<OrderCheckoutByFarmer> getAllOrdersToTheFarmer() {
         return orderService.getAllOrdersToTheFarmer();
     }
 
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/deleteorder/{id}")
+    @DeleteMapping("farmer/orders/deleteorder/{id}")
     public CommonResponse deleteOrderAsAFarmer(@PathVariable Long id) {
         return orderService.cancelOrder(id);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/{id}")
+    @GetMapping("farmer/orders/{id}")
     public OrderCheckoutByFarmer getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping("/updatestatus/{id}")
+    @PutMapping("farmer/orders/updatestatus/{id}")
     public CommonResponse updateOrderStatus(@RequestParam String agrodealerID, @RequestParam String newStatus) {
         return orderService.updateOrderStatus(agrodealerID, newStatus);
     }

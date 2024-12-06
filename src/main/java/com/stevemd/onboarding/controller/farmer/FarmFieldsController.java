@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @Controller
-@RequestMapping(path = "/agrisasa/farmfields/")
+@RequestMapping(path = "/agrisasa/")
 public class FarmFieldsController {
 
     private final FarmFieldsService farmFieldsService;
@@ -22,13 +22,13 @@ public class FarmFieldsController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(path = "createdfarmfields")
+    @GetMapping(path = "farmfields/createdfarmfields")
     public List<FarmField> createdFarmFields() {
         return farmFieldsService.farmFields();
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "create")
+    @PostMapping(path = "farmfields/create")
     public FarmFieldResponse createANewFarmField(@RequestBody FarmField farmField) {
         return farmFieldsService.addNewFarmField(farmField);
     }

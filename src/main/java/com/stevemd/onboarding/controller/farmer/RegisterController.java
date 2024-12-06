@@ -11,7 +11,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/auth/farmer/register")
+@RequestMapping("/auth/")
 @Slf4j
 public class RegisterController {
 
@@ -23,13 +23,13 @@ public class RegisterController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping
+    @PostMapping("farmer/register")
     public UniversalResponse signUpUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         return authService.signUpUser(signUpRequest);
     }
 
     @CrossOrigin(origins = "*") // allow access from angular frontend
-    @GetMapping(path = "/verify-email")
+    @GetMapping(path = "farmer/register/verify-email")
     public UniversalResponse confirmSignUpUserToken(@RequestParam("token") String token) {
         return authService.confirmToken(token);
     }

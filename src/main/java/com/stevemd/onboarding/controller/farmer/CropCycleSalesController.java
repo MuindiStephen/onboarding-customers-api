@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @Controller
-@RequestMapping(path = "/agrisasa/cropcycles/trackingfinancialrecords/")
+@RequestMapping(path = "/agrisasa/")
 public class CropCycleSalesController {
 
     private final CropCycleSalesService cropCycleSalesService;
@@ -22,25 +22,25 @@ public class CropCycleSalesController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(path = "cropcyclesales")
+    @GetMapping(path = "cropcycles/trackingfinancialrecords/cropcyclesales")
     public List<CropCycleSales> allCropCycleSales() {
         return cropCycleSalesService.cropCycleSales();
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "cropcyclesales/create")
+    @PostMapping(path = "cropcycles/trackingfinancialrecords/cropcyclesales/create")
     public CommonResponse createACropCycleSaleRecords(@RequestBody CropCycleSales cropCycleSales) {
         return cropCycleSalesService.createANewCropCycleSaleRecord(cropCycleSales);
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping(path = "cropcyclesales/delete")
+    @DeleteMapping(path = "cropcycles/trackingfinancialrecords/cropcyclesales/delete")
     public CommonResponse deleteAllCropCycleExpenses() {
         return cropCycleSalesService.deleteCycleSales();
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("cropcyclesales/{cropName}")
+    @GetMapping("cropcycles/trackingfinancialrecords/cropcyclesales/{cropName}")
     public CommonResponse getTotalExpensesForSpecificCrop(@PathVariable String cropName) {
         return cropCycleSalesService.getTotalSalesForCrop(cropName);
     }

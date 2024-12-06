@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth/fieldagent")
+@RequestMapping("/auth/")
 public class FieldAgentLoginController {
 
     @Autowired
     private FieldAgentAuthService authService;
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/login")
+    @PostMapping("fieldagent/login")
     public LoginResponse loginUserWithCreatedAuthenticationToken(
             @RequestBody LoginRequest loginRequest
     ) {
