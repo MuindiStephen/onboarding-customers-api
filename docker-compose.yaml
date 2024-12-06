@@ -11,12 +11,19 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: admin0000
     ports:
-      - "8085:8085"
+      - "8086:8086"
+    depends_on:
+      - postgresql
 
   postgresql:
     image: postgres
     environment:
-      POSTGRES_DB: onboarding
+      POSTGRES_DB: agrisasa
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin0000
+    ports:
+      - "5432:5432"
 
+
+#{local_port}:{docker_port}
+# services =>  App Services - spring.boot.app and PostgresSQL.

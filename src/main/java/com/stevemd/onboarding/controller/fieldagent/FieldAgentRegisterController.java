@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
+/**
+ * Field agent controller
+ */
 @RestController
 @RequestMapping("/auth/fieldagent/register")
 @Slf4j
