@@ -11,7 +11,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: admin0000
     ports:
-      - "8086:8086"
+      - "8086:8085"
     depends_on:
       - postgresql
 
