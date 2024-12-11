@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -108,8 +107,6 @@ public class FieldAgentAuthServiceImplm implements FieldAgentAuthService {
     public LoginResponse signinUser(LoginRequest loginRequest) {
         try {
             log.warn("email {} {}", loginRequest.getEmail(), loginRequest.getPassword());
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-//                    loginRequest.getEmail(), loginRequest.getPassword()));
 
             if (userRepository.existsByEmail(loginRequest.getEmail())) {
 
