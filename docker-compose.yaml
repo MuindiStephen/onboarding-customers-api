@@ -1,25 +1,28 @@
-version: '3'
+version: '3.8'
 
-# Individual services in isolated containers
 services:
-  spring-boot-app:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
     build:
       context: .
-      dockerfile: Dockerfile
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/agrisasa
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin0000
-
+    container_name: app
     depends_on:
-      - postgresql
-
-  postgresql:
-    image: postgres
+      - db
     environment:
-      POSTGRES_DB: agrisasa
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin0000
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin0000
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/agrisasa
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin0000
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8085:8086"
 
-#{local_port}:{docker_port}
-# services =>  App Services - spring.boot.app and PostgresSQL.
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin0000
+      - POSTGRES_DB=agrisasa
