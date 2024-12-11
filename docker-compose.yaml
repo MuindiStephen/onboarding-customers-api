@@ -10,8 +10,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/agrisasa
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: admin0000
-    ports:
-      - "8086:8085"
+
     depends_on:
       - postgresql
 
@@ -21,9 +20,6 @@ services:
       POSTGRES_DB: agrisasa
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin0000
-    ports:
-      - "5433:5432"
-
 
 #{local_port}:{docker_port}
 # services =>  App Services - spring.boot.app and PostgresSQL.

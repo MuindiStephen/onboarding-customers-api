@@ -5,7 +5,7 @@ import com.stevemd.onboarding.config.JwtTokenProvider;
 import com.stevemd.onboarding.config.email.EmailSender;
 import com.stevemd.onboarding.config.token.ConfirmationToken;
 import com.stevemd.onboarding.config.token.ConfirmationTokenService;
-import com.stevemd.onboarding.model.User;
+import com.stevemd.onboarding.model.UserFieldAgent;
 import com.stevemd.onboarding.repository.fieldagent.FieldAgentUserRepository;
 import com.stevemd.onboarding.responses.UniversalResponse;
 import com.stevemd.onboarding.security.UserDetailsServiceImpl;
@@ -17,11 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 @Slf4j
@@ -87,24 +84,11 @@ public class FieldAgentAuthServiceImplm implements FieldAgentAuthService {
         }
 
         // Use builder instead
-        User user1 = User.builder()
+        UserFieldAgent user1 = UserFieldAgent.builder()
                 .name(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .build();
-
-
-//        // Setting the specific role to the user
-//        Set<RoleName> role = signUpRequest.getRoles(); // retrieves roles from SignUpRequest where getRoles() retrieves a set of RoleNames
-//        Set<Role> roles = new HashSet<>(); //Initializes an empty HashSet named roles. This HashSet will hold instances of the Role entity,
-//        if (role == null)
-//            return UniversalResponse.builder()
-//                    .data(null)
-//                    .message("No user role")
-//                    .status("1")
-//                    .build();
-//
-//        user1.setRoles(roles);
 
 
         userRepository.save(user1);
@@ -124,23 +108,27 @@ public class FieldAgentAuthServiceImplm implements FieldAgentAuthService {
     public LoginResponse signinUser(LoginRequest loginRequest) {
         try {
             log.warn("email {} {}", loginRequest.getEmail(), loginRequest.getPassword());
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    loginRequest.getEmail(), loginRequest.getPassword()));
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+//                    loginRequest.getEmail(), loginRequest.getPassword()));
 
-            final UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(loginRequest.getEmail());
+            if (userRepository.existsByEmail(loginRequest.getEmail())) {
 
-            String accessToken = jwtTokenProvider.generateAccessToken(userDetails.getUsername());
-            String refreshToken = jwtTokenProvider.generateRefreshToken(userDetails.getUsername());
+                String accessToken = jwtTokenProvider.generateAccessToken(loginRequest.getEmail());
+                String refreshToken = jwtTokenProvider.generateRefreshToken(loginRequest.getPassword());
 
-            return new LoginResponse("00",accessToken, refreshToken, "You logged in successfully");
+                return new LoginResponse("00", accessToken, refreshToken, "Field Agent logged in successfully");
+            } else {
+                return new LoginResponse("1", null, null, "Field agent could not login, details not found in the system");
+            }
 
         } catch (Exception e) {
             log.error("Error occurred during login: {}", e.getMessage());
             return LoginResponse.builder()
                     .status("1")
-                    .message("Bad credentials: User not found | " + HttpStatus.FORBIDDEN)
+                    .message("Bad credentials: Field agent not found | " + HttpStatus.FORBIDDEN)
                     .build();
         }
+
     }
 
     @Override
@@ -148,38 +136,6 @@ public class FieldAgentAuthServiceImplm implements FieldAgentAuthService {
         ConfirmationToken confirmationToken = confirmationTokenService.getToken(token)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
 
-        // Check if the token has expired
-        if (confirmationToken.getExpiresAt().isAfter(LocalDateTime.now().plusMinutes(15))) {
-            // Token has expired, return error response
-            User user = confirmationToken.getUser1();
-            log.info("---Email verification failed for {} {}" + user.getEmail(), user.getName());
-
-            return UniversalResponse.builder()
-                    .status("1")
-                    .message("Token has expired")
-                    .build();
-        }
-
-        if (confirmationToken.getConfirmedAt() != null) {
-            return UniversalResponse.builder()
-                    .status("1")
-                    .message("Email is already verified")
-                    .build();
-        }
-        // Get the associated user
-        User user = confirmationToken.getUser1();
-
-        // Mark the user as verified;// Assuming you have an 'enabled' field in your User entity
-        // user.setEnabled(true);
-
-        // Save the updated user
-        userRepository.save(user);
-
-        // Delete the confirmation token
-        confirmationTokenService.delete(confirmationToken);
-
-        log.info("Email verification successful for {} {}" + user.getEmail(), user.getName());
-        // Return success response
         return UniversalResponse.builder()
                 .status("0")
                 .message("Email verified successfully")

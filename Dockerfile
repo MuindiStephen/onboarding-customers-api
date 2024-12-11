@@ -1,8 +1,6 @@
 
 FROM eclipse-temurin:11-jdk-jammy AS deps
 
-COPY spring-boot-user-microservice.jar agrisasa-backend.jar
-
-EXPOSE 8085
+COPY spring-boot-agrisasa.jar agrisasa-backend.jar
 
 ENTRYPOINT [ "java", "-jar","agrisasa-backend.jar" ]
