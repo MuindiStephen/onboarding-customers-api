@@ -1,9 +1,15 @@
 package com.stevemd.onboarding.controller.farmer;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/auth/")
 @CrossOrigin(origins = "*")
 public class SignOutController {
 
@@ -11,10 +17,13 @@ public class SignOutController {
      *
      * Handle sign out functionality
      */
-//    @PostMapping
-//    public ResponseEntity<?> signOut () {
-////       ResponseCookie cookie = new ResponseCookie();
-////       return  ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-////                .body(new MessageResponse("You have been signed out successfully"));
-//    }
+    @PostMapping("logout")
+    public LogOutResponse signOut () {
+       return LogOutResponse.builder()
+               .status("0")
+               .message("You logged out successfully")
+               .build();
+    }
 }
+
+
