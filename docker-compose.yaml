@@ -6,23 +6,13 @@ services:
     build:
       context: .
     container_name: app
-    depends_on:
-      - db
+    depends_on: []
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=admin0000
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/agrisasa
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=admin0000
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://10.20.2.69:1433;databaseName=ecl_agrisasa_db;encrypt=false;
+      - SPRING_DATASOURCE_USERNAME=dcharo
+      - SPRING_DATASOURCE_PASSWORD=ghyyddtau
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.SQLServerDialect
     ports:
       - "8085:8086"
-
-
-  db:
-    image: postgres
-    container_name: db
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=admin0000
-      - POSTGRES_DB=agrisasa
