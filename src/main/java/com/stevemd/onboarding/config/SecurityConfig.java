@@ -73,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/**",
                         "/agrisasa/**",
+                        "/uploads/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/v2/api-docs",

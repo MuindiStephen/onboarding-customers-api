@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
- * Handle image file uploading
+ * Handle image file uploading to the server.
  * and returning a URL.
  */
 @Service
